@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: cloudshield-attacker
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn -w 1 -b 0.0.0.0:$PORT attacker:app"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: CLOUDSHIELD_URL
+        value: https://cloudshield-security.onrender.com/api/ids/analyze
+      - key: FLASK_ENV
+        value: production
+      - key: REQUEST_TIMEOUT
+        value: 20
